@@ -3,4 +3,4 @@ project(tucxx)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(tucxx main.cpp)
+add_executable(tucxx src/main.cpp)
