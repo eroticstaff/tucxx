@@ -29,8 +29,12 @@ void print_row(const Row &row) {
 int main() {
     std::vector<Row> rows;
     //1100#1010
-//    std::vector<std::string> tape ={"0", "0", "1", "0"};
-    std::vector<std::string> tape = {"@", "1", "1", "0", "1", "1", "#", "0", "0", "0", "1"};
+    //for inc.tuc and dec.tuc
+    //    std::vector<std::string> tape ={"0", "0", "1", "0"};
+    //for inc_bin.tuc and inc_digit.tuc
+        std::vector<std::string> tape = {"@", "1", "1", "0", "1", "1", "#", "0", "0", "0", "1"};
+    //for bracket_balance.tuc
+    //    std::vector<std::string> tape = {"@", "(", "(", ")", ")", ")", "#", "0", "0", "0", "%"};
 
     int head = 0;
     std::string current_state = "GO_LEFT";
@@ -38,7 +42,7 @@ int main() {
 
 
     std::ifstream file;
-    file.open("../inc_bin.tuc");
+    file.open("../example_tucs/inc_digit.tuc");
     std::string line;
     while (std::getline(file, line)) {
         auto splitText = line | std::ranges::views::split(' ') | std::ranges::views::transform([](auto &&rng) {
@@ -72,8 +76,10 @@ int main() {
 
     bool loop = true;
 
+    int cycles = 0;
 
     while (loop) {
+        cycles++;
         std::stringstream tape_out;
 
         if (head == tape.size()) {
@@ -85,7 +91,7 @@ int main() {
         for (auto c: tape) {
             tape_out << c;
             if (i == head) {
-                 head_pos = tape_out.str().size();
+                head_pos = tape_out.str().size();
             }
             i++;
         }
@@ -110,6 +116,8 @@ int main() {
         if (!applied)
             break;
     }
+
+    std::cout << "TOTAL CYCLES: " << cycles << std::endl;
 
     return 0;
 }
